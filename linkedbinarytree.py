@@ -192,5 +192,54 @@ class LinkedBinaryTree(BinaryTree):
             node._right = t2.root
             t2._root = None
             t2._size = 0
+    
+    ### Additional methods below
+    def preorder(self):
+        """Return a generator of the tree's elements obtained using preorder traversal"""
+        if self._root is not None:
+            for element in self._subtree_preorder(self._root):
+                yield element
+
+    def _subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p"""
+        yield p._element # pre order: beginning
+        if p._left is not None:
+            for element in self._subtree_preorder(p._left):
+                yield element
+        if p._right is not None:
+            for element in self._subtree_preorder(p._right):
+                yield element
+
+    def postorder(self):
+        """Return a generator of the tree's elements obtained using postorder traversal"""
+        if self._root is not None:
+            for element in self._subtree_postorder(self._root):
+                yield element
+
+    def _subtree_postorder(self, p):
+        """Generate a postorder iteration of positions in subtree rooted at p"""
+        if p._left is not None:
+            for element in self._subtree_postorder(p._left):
+                yield element
+        if p._right is not None:
+            for element in self._subtree_postorder(p._right):
+                yield element
+        yield p._element # post oder: end
+
+    def inorder(self):
+        """Return a generator of the tree's elements obtained using inorder traversal"""
+        if self._root is not None:
+            for element in self._subtree_inorder(self._root):
+                yield element
+
+    def _subtree_inorder(self, p):
+        """Generate an inorder iteration of positions in subtree rooted at p"""
+        if p._left is not None:
+            for element in self._subtree_inorder(p._left):
+                yield element
+        yield p._element # in order: middle
+        if p._right is not None:
+            for element in self._subtree_inorder(p._right):
+                yield element
             
 
